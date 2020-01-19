@@ -12,12 +12,27 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 tempVel;
 
+    private RaycastHit2D[] hitBuffer = new RaycastHit2D[1];
+    private Collider2D coll;
+    public Collider2D other;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         if (!rb)
         {
             Debug.Log("Couldn't find a Rigidbody2D in " + gameObject.name);
+        }
+
+        if(rb.Cast(Vector2.right, hitBuffer, 0f) > 0)
+        {
+            print("Collision");
+        }
+
+        coll = GetComponent<Collider2D>();
+        if (coll.bounds.Intersects(other.bounds))
+        {
+            print("Intersect");
         }
     }
 
